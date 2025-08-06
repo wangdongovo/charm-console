@@ -1,4 +1,4 @@
-import gradient from 'gradient-string';
+import gradient from 'gradient-string'
 
 const isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined'
 
@@ -20,7 +20,6 @@ const browserStyles: Record<string, string> = {
     'background: linear-gradient(90deg, #ef4444, #dc2626); color: #fff; padding:2px 8px; border-radius:3px;',
 }
 
-
 // 表情
 const emojis = {
   log: '🥳',
@@ -28,10 +27,6 @@ const emojis = {
   warn: '🫵',
   error: '😭',
 }
-
-
-
-
 
 type ConsoleMethod = 'log' | 'info' | 'warn' | 'error'
 
@@ -52,27 +47,48 @@ function patchConsole() {
         const style = browserStyles[method].replace(/color:[^;]+;/, 'color: #fff;') + threeDEffects
         original(`%c${getTime()} ${emojis[method]}：`, style, ...args)
       }
-    }else {
+    } else {
       // Node环境下的实现 - 使用渐变色时间戳
       // 为不同日志级别定义渐变色（匹配浏览器端颜色）
-      const logGradient = gradient([ { color: '#A770EF', pos: 0 },{ color: '#CF8BF3', pos: 0.1 }, { color: '#22c55e', pos: 1 }]);
-      const infoGradient = gradient([ { color: '#A770EF', pos: 0 },{ color: '#CF8BF3', pos: 0.1 }, { color: '#2563eb', pos: 1 }]);
-      const warnGradient = gradient([ { color: '#A770EF', pos: 0 },{ color: '#CF8BF3', pos: 0.1 }, { color: '#facc15', pos: 1 }]);
-      const errorGradient = gradient([ { color: '#A770EF', pos: 0 },{ color: '#CF8BF3', pos: 0.1}, { color: '#dc2626', pos: 1 }]);
+      const logGradient = gradient([
+        { color: '#A770EF', pos: 0 },
+        { color: '#CF8BF3', pos: 0.1 },
+        { color: '#22c55e', pos: 1 },
+      ])
+      const infoGradient = gradient([
+        { color: '#A770EF', pos: 0 },
+        { color: '#CF8BF3', pos: 0.1 },
+        { color: '#2563eb', pos: 1 },
+      ])
+      const warnGradient = gradient([
+        { color: '#A770EF', pos: 0 },
+        { color: '#CF8BF3', pos: 0.1 },
+        { color: '#facc15', pos: 1 },
+      ])
+      const errorGradient = gradient([
+        { color: '#A770EF', pos: 0 },
+        { color: '#CF8BF3', pos: 0.1 },
+        { color: '#dc2626', pos: 1 },
+      ])
 
       // 根据日志级别获取对应的渐变色
       const getLevelGradient = (level: string) => {
-        switch(level) {
-          case 'log': return logGradient;
-          case 'info': return infoGradient;
-          case 'warn': return warnGradient;
-          case 'error': return errorGradient;
-          default: return logGradient;
+        switch (level) {
+          case 'log':
+            return logGradient
+          case 'info':
+            return infoGradient
+          case 'warn':
+            return warnGradient
+          case 'error':
+            return errorGradient
+          default:
+            return logGradient
         }
-      };
+      }
       console[method] = (...args: any[]) => {
-        const timestamp = `[${getTime()}]`;
-        const gradient = getLevelGradient(method);
+        const timestamp = `[${getTime()}]`
+        const gradient = getLevelGradient(method)
         original(gradient(timestamp) + ` ${emojis[method]}：`, ...args)
       }
     }
@@ -81,7 +97,7 @@ function patchConsole() {
 
 patchConsole()
 
+console.log('Console patched with enhanced styles and emojis!')
 
-export {
-  patchConsole
-}
+
+export { patchConsole }
