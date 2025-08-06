@@ -9,7 +9,7 @@
   },
   "types": "dist/index.d.ts",
   "scripts": {
-    "dev": "tsup --watch",
+    "dev": "tsup --watch --onSuccess 'node dist/index.js'",
     "build": "tsup",
     "prepare": "npm run build"
   },

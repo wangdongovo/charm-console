@@ -1,6 +1,8 @@
 import gradient from 'gradient-string'
 
-const isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined'
+const isBrowser = typeof window !== 'undefined' &&
+                  typeof window.document !== 'undefined' &&
+                  typeof window.navigator !== 'undefined'; // 增加navigator检查确保是浏览器环境
 
 function getTime() {
   const now = new Date()
