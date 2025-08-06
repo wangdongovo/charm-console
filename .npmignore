@@ -1,6 +1,9 @@
 node_modules/
 src/
 .git/
-rollup.config.js
 tsconfig.json
 index.html
+tsup.config.ts
+.nodemonignore
+.editorconfig
+.prettierrc.json

@@ -99,7 +99,7 @@ function patchConsole() {
 
 patchConsole()
 
-console.log('Console patched with enhanced styles and emojis!')
+
 
 
 export { patchConsole }
